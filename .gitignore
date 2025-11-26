@@ -1,0 +1,11 @@
+# Ignore the raw Kaggle images (Too big for GitHub)
+data/raw/kaggle/images/
+data/raw/kaggle/PlantVillage/
+
+# Ignore Python cache files
+__pycache__/
+*.pyc
+
+# Optional: Ignore virtual environment if you have one
+venv/
+.env
