@@ -12,7 +12,7 @@ def main():
     spark.sparkContext.setLogLevel("WARN")
     print("Spark session started")
 
-    # --- READ INPUT DATA (from Step 2 handoff) ---
+    # --- READ INPUT DATA ---
     sensor_df = spark.read \
         .option("header", True) \
         .option("inferSchema", True) \
@@ -35,16 +35,16 @@ def main():
     sensor_df = sensor_df.dropna(subset=["timestamp"])
 
     sensor_df = sensor_df.filter(
-        (col("humidity") >= 0) & (col("humidity") <= 100)
+        (col("air_humidity") >= 0) & (col("air_humidity") <= 100)
     )
 
     # --- CLEAN IMAGE METADATA ---
     image_df = image_df.dropDuplicates()
 
     image_df = image_df.withColumn(
-        "plant", lower(trim(col("plant")))
+        "plant", lower(trim(col("plant_name")))
     ).withColumn(
-        "disease", lower(trim(col("disease")))
+        "disease", lower(trim(col("disease_type")))
     )
 
     print("Data cleaning completed")
@@ -57,11 +57,11 @@ def main():
     print("Transformations completed")
 
     # --- AGGREGATION 1: DAILY SENSOR STATISTICS ---
-    daily_stats_df = sensor_df.groupBy("date", "field_id").agg(
-        avg("humidity").alias("avg_humidity"),
-        avg("soil_temp").alias("avg_soil_temp"),
-        avg("air_temp").alias("avg_air_temp"),
-        avg("ph").alias("avg_ph")
+    daily_stats_df = sensor_df.groupBy("date", "sensor_id").agg(
+        avg("air_humidity").alias("avg_air_humidity"),
+        avg("air_temperature").alias("avg_air_temperature"),
+        avg("soil_temperature").alias("avg_soil_temperature"),
+        avg("soil_ph").alias("avg_soil_ph")
     )
 
     print("Daily sensor statistics computed")
