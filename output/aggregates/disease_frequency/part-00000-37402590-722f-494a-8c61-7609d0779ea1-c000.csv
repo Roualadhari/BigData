@@ -1,0 +1,16 @@
+plant,disease,cases
+tomato_bacterial_spot,unknown,4254
+pepper  bell,healthy,2956
+tomato_spider_mites_two_spotted_spider_mite,unknown,3352
+tomato_septoria_leaf_spot,unknown,3542
+tomato__tomato_mosaic_virus,unknown,746
+potato,early blight,2000
+potato,healthy,304
+tomato_late_blight,unknown,3818
+tomato_leaf_mold,unknown,1904
+tomato_early_blight,unknown,2000
+tomato__tomato_yellowleaf__curl_virus,unknown,6416
+potato,late blight,2000
+pepper  bell,bacterial spot,1994
+tomato__target_spot,unknown,2808
+tomato_healthy,unknown,3182
